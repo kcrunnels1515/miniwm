@@ -26,7 +26,7 @@ miniwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	rm -f miniwm ${OBJ} miniwm-${VERSION}.tar.gz
+	rm -f miniwm ${OBJ} miniwm-${VERSION}.tar.gz config.h
 
 dist: clean
 	mkdir -p miniwm-${VERSION}

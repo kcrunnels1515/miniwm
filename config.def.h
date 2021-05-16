@@ -5,8 +5,8 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "Hack-Regular:size=10" };
+static const char dmenufont[]       = "Hack-Regular:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -81,8 +81,8 @@ static Key keys[] = {
 	{ MODKEY,	                -1,	XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       -1,	XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       -1,	XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
+	{ MODKEY|ShiftMask,             -1,	XK_j,      rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             -1,	XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       -1,	XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       -1,	XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ControlMask,           -1,	XK_j,      pushdown,     {.i = +1 } },
@@ -117,7 +117,7 @@ static Key keys[] = {
 	TAGKEYS(                        -1,	XK_7,                      6)
 	TAGKEYS(                        -1,	XK_8,                      7)
 	TAGKEYS(                        -1,	XK_9,                      8)
-	{ MODKEY|ShiftMask,             -1,	XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             -1,	XK_x,      quit,           {0} },
 };
 
 /* button definitions */
