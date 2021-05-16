@@ -31,7 +31,7 @@ clean:
 dist: clean
 	mkdir -p miniwm-${VERSION}
 	cp -R LICENSE Makefile README config.def.h config.mk\
-		miniwm.1 drw.h util.h ${SRC} miniwm.png transient.c miniwm-${VERSION}
+		miniwm.1 miniwm.desktop drw.h util.h ${SRC} miniwm.png transient.c miniwm-${VERSION}
 	tar -cf miniwm-${VERSION}.tar miniwm-${VERSION}
 	gzip miniwm-${VERSION}.tar
 	rm -rf miniwm-${VERSION}
@@ -43,6 +43,8 @@ install: all
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < miniwm.1 > ${DESTDIR}${MANPREFIX}/man1/miniwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/miniwm.1
+	cp -f miniwm.desktop ${DESTDIR}/usr/share/xsessions
+	chmod 644 ${DESTDIR}/usr/share/xsessions/miniwm.desktop
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/miniwm\

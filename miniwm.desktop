@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=MiniWM
+Comment=Modded dwm.
+Exec=miniwm
+Icon=dwm
+Terminal=false
+StartupNotify=false
+Categories=Application;
