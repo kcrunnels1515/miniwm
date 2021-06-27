@@ -29,7 +29,7 @@ static const char *const autostart[] = {
 	"setxkbmap", "-option", "caps:swapescape", NULL,
 	"volumeicon", NULL,
 	"nm-applet", NULL,
-	/* "xmodmap", "-e", "'keycode 135 = Multi_key'", NULL, */
+	"xmodmap", "-e", "'keycode 135 = Multi_key'", NULL,
 	NULL /* terminate */
 };
 
