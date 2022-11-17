@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <X11/XF86keysym.h>
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -21,8 +21,20 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 	"nitrogen", "--restore", NULL,
+	"aslstatus", NULL,
 	"xset", "r", "rate", "300", "70", NULL,
 	"setxkbmap", "-option", "caps:swapescape", NULL,
+        "xinput", "set-prop", "15", "321", "0", NULL,
+	"xinput", "set-prop", "15", "313", "1", NULL,
+        "numlockx", "on", NULL,
+	"xset", "b", "off", NULL,
+	"xsetroot", "-cursor_name", "left_ptr", NULL,
+        "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
+	"picom", NULL,
+	"dunst", NULL,
+	"mpv", "--no-video", "~/.config/bspwm/startup.mp3", NULL,
+        "emacs", "--daemon", NULL,
+	"xfce4-power-manager", NULL,
 	/* "xmodmap", "-e", "'keycode 135 = Multi_key'", NULL, */
 	NULL /* terminate */
 };
@@ -31,15 +43,17 @@ static const char *const autostart[] = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* xprop(1):
+	/* xprop(1):''
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	/* class      instance    title       tags mask     isfloating   monitor    scratch key */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        0  },
-	{ "firefox",  NULL,       NULL,       1 << 8,       0,           -1,        0  },
+	{ "firefox",  NULL,       NULL,       1 << 1,       0,           -1,        0  },
+	{ "mpv",      NULL,       NULL,       1 << 3,       0,           -1,        0  },
+	{ "vlc",      NULL,       NULL,       1 << 3,       0,           -1,        0  },
 	{ NULL,       NULL,   "scratchpad",   0,            1,           -1,       's' },
+	{ NULL,       NULL,   "fmscratch",    0,            1,           -1,       'f' },
 };
 
 /* layout(s) */
@@ -70,16 +84,26 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 
 /*First arg only serves to match against key in rules*/
-static const char *scratchpadcmd[] = {"s", "st", "-t", "scratchpad", NULL};
+static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad", NULL};
+static const char *fmpadcmd[] = {"f", "alacritty", "-t", "fmscratch", "-e", "lfub", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY|ShiftMask,             -1,	XK_Return, spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             -1,	XK_Return, spawn,          SHCMD("dmenu_run-better.sh") },
 	{ MODKEY,	                -1,	XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,		        -1,	XK_o,      spawn,          SHCMD("dmenufm") },
+	{ 0,		                -1,	XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer set Master 5%- unmute") },
+	{ 0,		                -1,	XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer set Master 5%+ unmute") },
+	{ 0,		                -1,	XF86XK_AudioMute,             spawn,          SHCMD("amixer set Master toggle") },
+	{ MODKEY|ShiftMask,	        -1,	XK_f,      spawn,          SHCMD("pcmanfm") },
+	{ MODKEY|ShiftMask,	        -1,	XK_d,      spawn,          SHCMD("rofi -show drun -show-icons") },
+	{ MODKEY,	                -1,	XK_w, 	   spawn,          SHCMD("firefox") },
+	{ MODKEY,	                -1,	XK_e, 	   spawn,          SHCMD("emacsclient -c -a 'alacritty -e nvim'") },
 	{ MODKEY,                       -1,	XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ShiftMask,             -1,	XK_grave,  togglescratch,  {.v = fmpadcmd } },
 	{ MODKEY,                       -1,	XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             -1,	XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             -1,	XK_k,      rotatestack,    {.i = -1 } },
