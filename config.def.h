@@ -32,7 +32,7 @@ static const char *const autostart[] = {
         "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
 	"picom", NULL,
 	"dunst", NULL,
-	"mpv", "--no-video", "~/.config/bspwm/startup.mp3", NULL,
+	"mpv", "--no-video", "/home/kellyr/.config/bspwm/startup.mp3", NULL,
         "emacs", "--daemon", NULL,
 	"xfce4-power-manager", NULL,
 	/* "xmodmap", "-e", "'keycode 135 = Multi_key'", NULL, */
@@ -95,10 +95,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             -1,	XK_Return, spawn,          SHCMD("dmenu_run-better.sh") },
 	{ MODKEY,	                -1,	XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,		        -1,	XK_o,      spawn,          SHCMD("dmenufm") },
+	{ MODKEY,		        -1,	XK_F2,     spawn,          SHCMD("xrandr --output HDMI-0 --auto --left-of LVDS-1-1 && nitrogen --head=0 --random --set-scaled && nitrogen --head=1 --random --set-scaled") },
 	{ 0,		                -1,	XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer set Master 5%- unmute") },
 	{ 0,		                -1,	XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer set Master 5%+ unmute") },
 	{ 0,		                -1,	XF86XK_AudioMute,             spawn,          SHCMD("amixer set Master toggle") },
-	{ MODKEY|ShiftMask,	        -1,	XK_f,      spawn,          SHCMD("pcmanfm") },
+/*	{ MODKEY|ShiftMask,	        -1,	XK_f,      spawn,          SHCMD("pcmanfm") },*/
 	{ MODKEY|ShiftMask,	        -1,	XK_d,      spawn,          SHCMD("rofi -show drun -show-icons") },
 	{ MODKEY,	                -1,	XK_w, 	   spawn,          SHCMD("firefox") },
 	{ MODKEY,	                -1,	XK_e, 	   spawn,          SHCMD("emacsclient -c -a 'alacritty -e nvim'") },
